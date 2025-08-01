@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInput, StyleSheet, TextInputProps } from 'react-native';
 
 interface InputProps extends TextInputProps {
-  placeholder: string;
+  placeholder: string; // Placeholder text shown when input is empty
 }
 
 const Input: React.FC<InputProps> = ({ placeholder, ...rest }) => {

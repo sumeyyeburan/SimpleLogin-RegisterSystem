@@ -12,17 +12,21 @@ const RegisterScreen = ({ navigation }: any) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Handles user registration logic on form submission
   const handleRegister = async () => {
+    // Validate all required fields are filled
     if (!userName || !email || !password) {
       Alert.alert("Missing Fields", "Please fill in all fields.");
       return;
     }
 
+    // Validate email format
     if (!validateEmail(email)) {
       Alert.alert("Invalid Email", "Please enter a valid email address.");
       return;
     }
 
+    // Validate password complexity
     if (!validatePassword(password)) {
       Alert.alert(
         "Password Error",
@@ -34,25 +38,30 @@ const RegisterScreen = ({ navigation }: any) => {
     setLoading(true);
 
     try {
+      // Send registration request to backend API
       await apiClient.post("/Auth/register", {
         userName,
         email,
         password,
       });
 
+      // Inform user of successful registration
       Alert.alert("Success", "Your account was created successfully! You can now log in.");
+
+      // Navigate back to login screen
       navigation.goBack();
     } 
     catch (error: any) {
       let message = "Something went wrong. Please try again.";
 
+      // Extract meaningful error message from backend if available
       if (error?.response?.data) {
       const data = error.response.data;
 
       if (typeof data.message === "string") {
         message = data.message;
       } else if (typeof data === "string") {
-        message = data; // Bazı backend'ler direkt string döner
+        message = data; // Some backends return plain string messages
       }
     }
       console.error("Registration Error:", message);

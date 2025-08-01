@@ -1,5 +1,5 @@
-import axios from 'axios'; // HTTP istekleri yapmak için kullanılan bir kütüphane. GET, POST, PUT, DELETE vs.
-import AsyncStorage from '@react-native-async-storage/async-storage'; // React Native’de cihazda küçük verileri (örneğin token, kullanıcı bilgisi) saklamak için kullanılır. Burada JWT token saklanıyor.
+import axios from 'axios'; // Library used to make HTTP requests like GET, POST, PUT, DELETE, etc.
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Used in React Native to store small data on device (e.g., token, user info). Here, JWT token is stored.
 
 const apiClient = axios.create({
   baseURL: 'http://10.0.2.2:5246/api',
@@ -18,4 +18,4 @@ apiClient.interceptors.request.use(async (config) => {
 }, error => Promise.reject(error));
 
 export default apiClient;
-// Bu apiClient objesini dışarıya açıyoruz, yani diğer dosyalar bunu import edip kullanabilir.
+// Exporting this apiClient object so other files can import and use it.

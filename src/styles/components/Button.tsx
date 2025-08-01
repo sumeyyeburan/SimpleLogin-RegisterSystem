@@ -1,17 +1,17 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps } from 'react-native';
 /*
-TouchableOpacity: Dokunma etkisi veren, buton işlevi gören React Native komponenti.
+TouchableOpacity: A React Native component that provides touch feedback and acts as a button.
 
-Text: Buton üzerindeki yazı için.
+Text: Displays the text inside the button.
 
-StyleSheet: Stil oluşturmak için.
+StyleSheet: Used for creating component-specific styles.
 
-TouchableOpacityProps: Butonun standart özellik tipleri (disabled, onPress, vb).
+TouchableOpacityProps: Standard prop types for TouchableOpacity (like disabled, onPress, etc).
 */
 
 interface ButtonProps extends TouchableOpacityProps {
-  title: string;
+  title: string; // Button label text
 }
 
 const Button: React.FC<ButtonProps> = ({ title, disabled, ...rest }) => {
