@@ -6,12 +6,9 @@ import apiClient from '../api/apiClient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../context/AuthContext';
 import { styles } from '../styles/AuthScreen.styles';
-import { validateEmail } from "../utils/validation";
 
 const LoginScreen = ({ navigation }: any) => {
   const [identifier, setIdentifier] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -24,15 +21,10 @@ const LoginScreen = ({ navigation }: any) => {
       return;
     }
 
-    // if (!validateEmail(email)) {
-    //   Alert.alert("Invalid Email", "Please enter a valid email address.");
-    //   return;
-    // }
-
-     // Email mi? Regex ile kontrol et
+     // Is Email? Check with Regex
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
 
-  // API body’yi hazırlıyoruz
+  // API Request Body
     const requestBody = {
       email: isEmail ? identifier : null,
       userName: !isEmail ? identifier : null,

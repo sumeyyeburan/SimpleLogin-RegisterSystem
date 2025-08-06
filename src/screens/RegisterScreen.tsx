@@ -20,6 +20,11 @@ const RegisterScreen = ({ navigation }: any) => {
       return;
     }
 
+    if (!userName || userName.length < 3) {
+      Alert.alert("Error", "Username must be at least 3 characters long.");
+      return;
+    }
+    
     // Validate email format
     if (!validateEmail(email)) {
       Alert.alert("Invalid Email", "Please enter a valid email address.");
