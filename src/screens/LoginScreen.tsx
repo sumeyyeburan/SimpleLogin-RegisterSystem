@@ -9,7 +9,9 @@ import { styles } from '../styles/AuthScreen.styles';
 import { validateEmail } from "../utils/validation";
 
 const LoginScreen = ({ navigation }: any) => {
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -17,21 +19,31 @@ const LoginScreen = ({ navigation }: any) => {
   // Handles login logic when user presses the login button
   const handleLogin = async () => {
     // Basic input validation
-    if (!email || !password) {
-      Alert.alert('Error', 'Email and password are required.');
+    if (!identifier  || !password) {
+      Alert.alert('Error', 'Please enter your email or username and password.');
       return;
     }
 
-    if (!validateEmail(email)) {
-      Alert.alert("Invalid Email", "Please enter a valid email address.");
-      return;
-    }
+    // if (!validateEmail(email)) {
+    //   Alert.alert("Invalid Email", "Please enter a valid email address.");
+    //   return;
+    // }
+
+     // Email mi? Regex ile kontrol et
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
+
+  // API body’yi hazırlıyoruz
+    const requestBody = {
+      email: isEmail ? identifier : null,
+      userName: !isEmail ? identifier : null,
+      password,
+    };
 
     setLoading(true);
 
     try {
       // Send login request to backend
-      const response = await apiClient.post('/Auth/login', { email, password });
+      const response = await apiClient.post('/Auth/login', requestBody);
       const token = response.data.token;
 
       // Save token locally for authentication persistence
@@ -52,7 +64,7 @@ const LoginScreen = ({ navigation }: any) => {
 
         // Default error message for user feedback
       if (status === 401 || message?.includes ('invalid credentials') || message?.includes('wrong password')) {
-        userMessage = 'Incorrect username or password.';
+        userMessage = 'Incorrect username , email or password.';
       } else if (status === 400) {
         userMessage = 'Please fill in all fields correctly.';
       } else if (message) {
@@ -72,10 +84,9 @@ const LoginScreen = ({ navigation }: any) => {
       <Text style={styles.title}>LOGIN SYSTEM</Text>
       
       <Input 
-      placeholder="E-mail" 
-      value={email} 
-      onChangeText={setEmail} 
-      keyboardType="email-address"
+      placeholder="Email or Username" 
+      value={identifier} 
+      onChangeText={setIdentifier} 
       autoCapitalize="none"
       />
       <Input 
