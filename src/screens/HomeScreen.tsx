@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Alert } from "react-native";
 import Button from "../styles/components/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../context/AuthContext";
 import { styles } from "../styles/HomeScreen.styles";
 import { decodeBase64 } from "../utils/base64";
-import { Alert } from "react-native";
 
 const motivationalMessages = [
   "Keep pushing forward!",
