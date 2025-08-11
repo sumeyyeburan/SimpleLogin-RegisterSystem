@@ -5,22 +5,22 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../context/AuthContext";
 import { styles } from "../styles/HomeScreen.styles";
 import { decodeBase64 } from "../utils/base64";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const motivationalMessages = [
-  "Keep pushing forward!",
-  "Believe in yourself!",
-  "Today is a great day!",
-  "Success is near!",
-  "You're doing amazing!",
-  "You're beautiful, brilliant, and built for greatness.",
-  "Shine bright. The world needs your light.",
-];
+
+type AuthenticatedStackParamList = {
+  Home: undefined;
+  QRScanner: undefined;
+};
+
 
 const HomeScreen = () => {
   const { setIsAuthenticated } = useContext(AuthContext);
   const { logoutWithReason } = useContext(AuthContext);
 
-  const [message, setMessage] = useState("");
+  const navigation = useNavigation<NativeStackNavigationProp<AuthenticatedStackParamList>>();
+
 
   // Periodically check token expiration every 30 seconds
   useEffect(() => {
@@ -41,14 +41,6 @@ const HomeScreen = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const randomMsg =
-      motivationalMessages[
-        Math.floor(Math.random() * motivationalMessages.length)
-      ];
-    setMessage(randomMsg);
-  }, []);
-
   // Manual logout handler
   const handleLogout = async () => {
     await AsyncStorage.removeItem("token"); // Remove token from storage
@@ -56,14 +48,45 @@ const HomeScreen = () => {
     Alert.alert("Logged Out", "You have successfully logged out."); // Notify user
   };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome!</Text>
-      <Text style={styles.subtitle}>{message}</Text>
+  // return (
+  //    <View style={styles.container}>
+   
+  //   <View>
+  //     <Text style={styles.title}>Welcome!</Text>
 
-      <Button style={styles.button} title="Log Out" onPress={handleLogout} />
+  //     <Button
+  //       style={styles.button}
+  //       title="QR Tara"
+  //       onPress={() => navigation.navigate("QRScanner")}
+  //     />
+  //   </View>
+
+  //   <Button
+  //     style={styles.buttonLogout}
+  //     title="Log Out"
+  //     onPress={handleLogout}
+  //   />
+  // </View>
+  // );
+  return (
+  <View style={styles.container}>
+    <View style={{ alignItems: 'center' }}>
+      <Text style={styles.title}>Welcome!</Text>
+      <Button
+        style={styles.button}
+        title="QR Tara"
+        onPress={() => navigation.navigate("QRScanner")}
+      />
     </View>
-  );
+
+    <Button
+      style={styles.buttonLogout}
+      title="Log Out"
+      onPress={handleLogout}
+    />
+  </View>
+);
+
 };
 
 export default HomeScreen;

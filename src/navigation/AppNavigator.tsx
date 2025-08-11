@@ -4,6 +4,8 @@ import { AuthContext } from '../context/AuthContext';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import HomeScreen from '../screens/HomeScreen';
+import QRScannerScreen from '../screens/QRScannerScreen';  // Dosya adıyla birebir uyumlu olmalı
+
 
 const Stack = createNativeStackNavigator();
 
@@ -13,15 +15,18 @@ const AppNavigator = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {isAuthenticated ? (
-        <Stack.Screen name="Home" component={HomeScreen} />
-      ) : (
-        <>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-        </>
-      )}
-    </Stack.Navigator>
+  {isAuthenticated ? (
+    <>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="QRScanner" component={QRScannerScreen} />
+    </>
+  ) : (
+    <>
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
+    </>
+  )}
+</Stack.Navigator>
   );
 };
 

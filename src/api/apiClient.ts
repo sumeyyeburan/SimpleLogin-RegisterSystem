@@ -2,7 +2,7 @@ import axios from 'axios'; // Library used to make HTTP requests like GET, POST,
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Used in React Native to store small data on device (e.g., token, user info). Here, JWT token is stored.
 
 const apiClient = axios.create({
-  baseURL: 'http://10.0.2.2:5246/api',
+  baseURL: 'https://00ae62502df0.ngrok-free.app/api',
   headers: {
     'Content-Type': 'application/json',
   },
