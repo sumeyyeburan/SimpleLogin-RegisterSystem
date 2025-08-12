@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import HomeScreen from '../screens/HomeScreen';
-import QRScannerScreen from '../screens/QRScannerScreen';  // Dosya adıyla birebir uyumlu olmalı
+import QRScannerScreen from '../screens/QRScannerScreen'; 
 
 
 const Stack = createNativeStackNavigator();
