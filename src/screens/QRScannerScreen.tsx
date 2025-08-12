@@ -3,6 +3,7 @@ import { Alert, Button, Text, View } from 'react-native';
 import { CameraView, useCameraPermissions, BarcodeScanningResult } from 'expo-camera';
 import { styles } from '../styles/QRScanner.styles';
 
+// Define supported camera types
 const CameraType = {
   back: 'back',
   front: 'front',
@@ -14,25 +15,29 @@ type CameraType = typeof CameraType[keyof typeof CameraType];
 const QRScannerScreen = () => {
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState(false);
-  const cameraRef = useRef(null); // Kamera ref tipi opsiyonel
+
+  // Reference to the camera instance (can be used for advanced controls)
+  const cameraRef = useRef(null); 
 
   useEffect(() => {
+    // Request camera permission if not already granted
     if (!permission?.granted) {
       requestPermission();
     }
   }, []);
 
+  // Handle scanned QR code result
   const handleBarCodeScanned = ({ data }: BarcodeScanningResult) => {
     setScanned(true);
-    Alert.alert('QR Kod Okundu', `Veri: ${data}`);
+    Alert.alert('QR Code Scanned', `Data: ${data}`);
   };
 
   if (!permission) {
-    return <Text>İzinler kontrol ediliyor...</Text>;
+    return <Text>Checking permissions...</Text>;
   }
 
   if (!permission.granted) {
-    return <Text>Kamera izni verilmedi.</Text>;
+    return <Text>Camera permission not granted..</Text>;
   }
 
   return (
@@ -47,7 +52,7 @@ const QRScannerScreen = () => {
         }}
       />
       {scanned && (
-        <Button title="Tekrar Tara" onPress={() => setScanned(false)} />
+        <Button title="Scan Again" onPress={() => setScanned(false)} />
       )}
     </View>
   );

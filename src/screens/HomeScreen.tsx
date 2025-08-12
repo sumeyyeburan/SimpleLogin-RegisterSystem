@@ -48,33 +48,13 @@ const HomeScreen = () => {
     Alert.alert("Logged Out", "You have successfully logged out."); // Notify user
   };
 
-  // return (
-  //    <View style={styles.container}>
-   
-  //   <View>
-  //     <Text style={styles.title}>Welcome!</Text>
-
-  //     <Button
-  //       style={styles.button}
-  //       title="QR Tara"
-  //       onPress={() => navigation.navigate("QRScanner")}
-  //     />
-  //   </View>
-
-  //   <Button
-  //     style={styles.buttonLogout}
-  //     title="Log Out"
-  //     onPress={handleLogout}
-  //   />
-  // </View>
-  // );
   return (
   <View style={styles.container}>
     <View style={{ alignItems: 'center' }}>
       <Text style={styles.title}>Welcome!</Text>
       <Button
         style={styles.button}
-        title="QR Tara"
+        title="Scan QR"
         onPress={() => navigation.navigate("QRScanner")}
       />
     </View>
